@@ -1,0 +1,60 @@
+version: '3.1'
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+
+intents:
+- init
+- yes
+- no
+
+entities:
+- entity_yes
+- entity_no
+
+slots:
+
+  is_someone:
+    type: any
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: entity_yes
+        intent: yes
+        conditions:
+          - active_loop: form_enforce_yes_or_no
+            requested_slot: is_someone
+      - type: from_entity
+        entity: entity_no
+        intent: no
+        conditions:
+          - active_loop: form_enforce_yes_or_no
+            requested_slot: is_someone
+
+forms:
+  form_enforce_yes_or_no:
+    ignored_intents:
+      - who_are_you
+      - init
+      - what_is_the_matter
+      - response_last_four_digits
+    required_slots:
+      - is_someone
+      # - last_four_digits
+
+
+responses:
+  utter_fallback:
+    - text: 不好意思，我不理解
+  utter_default:
+    - text: 对不起，我不理解
+  utter_final:
+    - text: 表单结束了
+
+actions:
+  - print_slot
+  - validate_form_enforce_yes_or_no
+  - action_ask_is_someone
+
+

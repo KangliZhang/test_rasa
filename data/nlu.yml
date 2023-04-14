@@ -1,0 +1,50 @@
+version: '3.1'
+
+nlu:
+
+- lookup: entity_no
+  examples: |
+    - 不是
+    - 我不是
+    - 他不在
+    - 打错了吧
+
+- regex: entity_yes
+  examples: |
+    - ^我是$
+    - 我是的
+    - 我是啊
+    - ^是我(啊|哈|呢)?$
+    - ^(?!.*不)是的
+    - ^(?!.*不)对的
+    - ^(?!.*不)是啊
+    - ^(?!.*不)对啊
+    - ^是$
+
+- intent: init
+  examples: |
+    - init
+
+- intent: yes
+  examples: |
+    - [对的]{"entity":"entity_yes"}
+    - [是的]{"entity":"entity_yes"}，[我是]{"entity":"entity_yes"}啦，你哪位
+    - [我是]{"entity":"entity_yes"}，你有什么事情
+    - [是的]{"entity":"entity_yes"}，[我是]{"entity":"entity_yes"}
+    - [我是]{"entity":"entity_yes"}，您哪位啊，有什么事情么
+    - [是的]{"entity":"entity_yes"}
+    - [是的]{"entity":"entity_yes"}，你哪位
+    - [是的]{"entity":"entity_yes"}，[我是]{"entity":"entity_yes"}，有什么事情么
+    - [是的啦]{"entity":"entity_yes"}
+
+- intent: no
+  examples: |
+    - [不是的]{"entity":"entity_no"}
+    - [我不是]{"entity":"entity_no"}，你打错了吧
+    - [我不是]{"entity":"entity_no"}
+    - [不是啦]{"entity":"entity_no"}，打错了吧
+    - [不是]{"entity":"entity_no"}
+    - [打错了吧]{"entity":"entity_no"}
+    - [不是的]{"entity":"entity_no"}，[我不是]{"entity":"entity_no"}
+    - 不，[我不是]{"entity":"entity_no"}
+

@@ -1,0 +1,11 @@
+version: '3.1'
+
+stories:
+
+- story: is someone
+  steps:
+  - intent: init
+  - action: form_enforce_yes_or_no
+  - active_loop: form_enforce_yes_or_no
+  - active_loop: null
+  - action: utter_final
